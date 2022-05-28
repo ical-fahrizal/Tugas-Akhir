@@ -1,0 +1,5 @@
+pip install opencv-python
+pip install requests
+pip install pyrebase4
+pip install imutils
+pip install playsound

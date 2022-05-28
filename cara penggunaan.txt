@@ -1,0 +1,9 @@
+email : tugas.akhir.elektro.2022@gmail.com
+pass : tugasakhir2022
+
+password raspi 
+username    : pi
+password    : raspi
+
+install pyhon 3.9 ++
+buka cmd ketik "pip install -r library.txt"
