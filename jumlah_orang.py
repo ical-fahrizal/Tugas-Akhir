@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import database as db
+import time
 
 def center(x, y, w, h):
     x1 = int(w / 2)
@@ -120,7 +121,7 @@ while True:
     cv2.putText(frame, "KELUAR: "+str(down), (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255),2)
 
     cv2.imshow("frame", frame)
-
+    time.sleep(0.2)
     db.kirim_orang(total)
     if cv2.waitKey(30) & 0xFF == ord('q'):
         break
