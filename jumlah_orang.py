@@ -10,7 +10,7 @@ def center(x, y, w, h):
     cy = y + y1
     return cx,cy
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 fgbg = cv2.createBackgroundSubtractorMOG2()
 
@@ -122,7 +122,7 @@ while True:
 
     cv2.imshow("frame", frame)
     time.sleep(0.2)
-    db.kirim_orang(total)
+    #db.kirim_orang(total)
     if cv2.waitKey(30) & 0xFF == ord('q'):
         break
 
