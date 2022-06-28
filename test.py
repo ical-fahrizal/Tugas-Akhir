@@ -10,7 +10,10 @@ def center(x, y, w, h):
     cy = y + y1
     return cx,cy
 
-cap = cv2.VideoCapture(0)
+cap_orang = cv2.VideoCapture(0)
+cap_masker = cv2.VideoCapture(1)
+
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml') #load model muka
 
 fgbg = cv2.createBackgroundSubtractorMOG2()
 
@@ -31,8 +34,10 @@ down = 0
 
 
 def scale_vidio():
-    cap.set(3, 384)
-    cap.set(4, 400)
+    cap_orang.set(3, 384)
+    cap_orang.set(4, 400)
+    cap_masker.set(3, 384)
+    cap_masker.set(4, 400)
     # cap.set(3, 384)
     # cap.set(4, 288)
 
@@ -40,13 +45,32 @@ scale_vidio()
 
 print('hitung orang berjalan')
 while True:
-    ret, frame = cap.read()
+    ret, frame = cap_orang.read()
+    ret0, frame0 = cap_masker.read()
     #cv2.resize(cap, (384, 288), interpolation = cv2.INTER_LINEAR)
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    # cv2.imshow("gray", gray)
+    pelanggar = 0
 
-    fgmask = fgbg.apply(gray)
+    gray = cv2.cvtColor(frame0, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+
+    for (x, y , w ,h) in faces:
+        cv2.rectangle(frame0, (x,y), (x+w, y+h), (3, 252, 169), 2)
+        pelanggar += 1
+    
+    cv2.putText(frame0, 
+                'Pelanggar masker =  ' + str(pelanggar), 
+                (50, 50), 
+                cv2.FONT_HERSHEY_SIMPLEX, 0.7, 
+                (0, 255, 255), 
+                1, 
+                cv2.LINE_4)
+    cv2.imshow('img', frame0)
+
+    gray_orang = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # cv2.imshow("gray", gray_orang)
+
+    fgmask = fgbg.apply(gray_orang)
     # cv2.imshow("fgmask", fgmask)
 
     retval, th = cv2.threshold(fgmask, 200, 255, cv2.THRESH_BINARY)
@@ -125,6 +149,7 @@ while True:
     cv2.imshow("frame", frame)
     time.sleep(0.2)
     #db.kirim_orang(total)
+    #db.kirim_masker(pelanggar)
     if cv2.waitKey(30) & 0xFF == ord('q'):
         break
 
