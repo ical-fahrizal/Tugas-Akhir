@@ -2,6 +2,10 @@ import numpy as np
 import cv2
 import database as db
 import time
+import os
+import time 
+from time import sleep
+from datetime import datetime
 
 def center(x, y, w, h):
     x1 = int(w / 2)
@@ -31,8 +35,6 @@ total = 0
 up = 0
 down = 0
 
-
-
 def scale_vidio():
     cap_orang.set(3, 384)
     cap_orang.set(4, 400)
@@ -44,6 +46,7 @@ def scale_vidio():
 scale_vidio()
 
 print('hitung orang berjalan')
+
 while True:
     ret, frame = cap_orang.read()
     ret0, frame0 = cap_masker.read()
@@ -147,9 +150,9 @@ while True:
     cv2.putText(frame, "KELUAR: "+str(down), (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255),2)
 
     cv2.imshow("frame", frame)
-    time.sleep(0.2)
     #db.kirim_orang(total)
     #db.kirim_masker(pelanggar)
+
     if cv2.waitKey(30) & 0xFF == ord('q'):
         break
 
