@@ -17,15 +17,14 @@ firebaseConfig={
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 storage = firebase.storage()
-filename = datetime.now().strftime('data logger-%Y-%m-%d.csv')
+filename = datetime.now().strftime('%Y-%m-%d.csv')
 
-path_on_cloud = "data_log/test.csv"
+path_on_cloud = "data_log/{}".format(filename)
 path_local = "data_log/data logger-2022-06-30.csv"
-
 storage.child(path_on_cloud).put(path_local)
 
 #kirim file 
-# def kirim_file():
+# def kirim_file(nama_file, file):
 #     storage.child(path_on_cloud).put(path_local)
 
 #kirim data pelanggar masker 

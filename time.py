@@ -1,3 +1,4 @@
+from time import time, sleep
 from datetime import datetime
 
 while True:

@@ -1,12 +1,14 @@
 import cv2
-#import database as db
+import database as db
 import time
 import csv
+from flask import Flask, render_template, Response
 
+app = Flask(__name__)
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml') #load model muka
 
-cap = cv2.VideoCapture(1) #membuka webcam
+cap = cv2.VideoCapture(0) #membuka webcam
 
 def scale_vidio():
     cap.set(3, 384)
@@ -15,6 +17,11 @@ def scale_vidio():
     # cap.set(4, 288)
 
 scale_vidio()
+
+@app.route('/')
+def index():
+    """Video streaming home page."""
+    return render_template('index.html')
 
 def deteksi_masker():
     print('deteksi wajah berjalan')
@@ -37,12 +44,21 @@ def deteksi_masker():
                     1, 
                     cv2.LINE_4)
         cv2.imshow('img', frame0)
+        test = cv2.imencode('.jpg', frame0)[1].tobytes()
+        yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + test + b'\r\n')
+        
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+        db.kirim_masker(pelanggar)
         time.sleep(0.2)
-        #db.kirim_masker(pelanggar)
-    return pelaggar
 
-deteksi_masker()
-cap.release()
-cv2.destroyAllWindows()
+
+@app.route('/video_feed')
+def video_feed():
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(deteksi_masker(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', threaded=True)

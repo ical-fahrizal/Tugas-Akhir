@@ -2,6 +2,7 @@ from playsound import playsound
 import database as db
 import os
 import time
+from test import citra
 
 #os.system(./run.sh) #nanti di aktivin ketika di raspi
 
