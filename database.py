@@ -28,6 +28,10 @@ storage.child(path_on_cloud).put(path_local)
 #     storage.child(path_on_cloud).put(path_local)
 
 #kirim data pelanggar masker 
+def kirimIP(ip):
+    db.child(ruang).update({'ip address' : ip}) #mengupdate value pelanggar masker
+
+#kirim data pelanggar masker 
 def kirim_masker(masker):
     db.child(ruang).update({'pelanggar masker' : masker}) #mengupdate value pelanggar masker
 

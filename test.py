@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-#import database as db
+import database as db
 import time
 import os
 import time 
@@ -155,14 +155,14 @@ def citra():
         cv2.putText(frame, "KELUAR: "+str(down), (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255),2)
 
         # cv2.imshow("frame", frame)
-        both = np.column_stack((frame,frame0))
+        #both = np.column_stack((frame,frame0))
+        both = np.concatenate((frame, frame0), axis=0)
         #cv2.imshow('join', both)
         vidio = cv2.imencode('.jpg', both)[1].tobytes()
         yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + vidio + b'\r\n')
-
+        db.kirim_orang(total)
+        db.kirim_masker(pelanggar)
         time.sleep(.2)
-        #db.kirim_orang(total)
-        #db.kirim_masker(pelanggar)
 
         if cv2.waitKey(30) & 0xFF == ord('q'):
             break

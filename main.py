@@ -2,17 +2,20 @@ from playsound import playsound
 import database as db
 import os
 import time
-from test import citra
+import socket
 
 #os.system(./run.sh) #nanti di aktivin ketika di raspi
+host = socket.gethostname()
+ip_addr = socket.gethostbyname(host)
 
 batas_orang = db.batas_orang()
 jumlah_orang = db.jumlah_orang()
 pelanggar_masker = db.pelanggar_masker()
 
 while True:
+    db.kirimIP(ip_addr)
     #status pada jumlah orang 
-    if jumlah_orang >= batas_orang:
+    if jumlah_orang >= int(batas_orang):
         print('melebihi batas')
     else:
         print('aman')
