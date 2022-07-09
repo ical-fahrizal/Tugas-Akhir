@@ -155,8 +155,8 @@ def citra():
         cv2.putText(frame, "KELUAR: "+str(down), (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255),2)
 
         # cv2.imshow("frame", frame)
-        #both = np.column_stack((frame,frame0))
-        both = np.concatenate((frame, frame0), axis=0)
+        both = np.column_stack((frame,frame0))
+        #both = np.concatenate((frame, frame0), axis=0)
         #cv2.imshow('join', both)
         vidio = cv2.imencode('.jpg', both)[1].tobytes()
         yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + vidio + b'\r\n')

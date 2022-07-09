@@ -16,12 +16,12 @@ firebaseConfig={
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
-storage = firebase.storage()
-filename = datetime.now().strftime('%Y-%m-%d.csv')
+# storage = firebase.storage()
+# filename = datetime.now().strftime('%Y-%m-%d.csv')
 
-path_on_cloud = "data_log/{}".format(filename)
-path_local = "data_log/data logger-2022-06-30.csv"
-storage.child(path_on_cloud).put(path_local)
+# path_on_cloud = "data_log/{}".format(filename)
+# path_local = "data_log/data logger-2022-06-30.csv"
+# storage.child(path_on_cloud).put(path_local)
 
 #kirim file 
 # def kirim_file(nama_file, file):
@@ -53,3 +53,8 @@ def jumlah_orang():
 def pelanggar_masker():
     pelaggar = db.child(ruang).child('pelanggar masker').get()
     return pelaggar.val()
+
+#mendapatkan data speaker
+def speaker():
+    speaker = db.child(ruang).child('speaker').get()
+    return speaker.val()

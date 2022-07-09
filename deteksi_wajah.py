@@ -9,14 +9,8 @@ app = Flask(__name__)
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml') #load model muka
 
 cap = cv2.VideoCapture(0) #membuka webcam
-
-def scale_vidio():
-    cap.set(3, 384)
-    cap.set(4, 400)
-    # cap.set(3, 384)
-    # cap.set(4, 288)
-
-scale_vidio()
+cap.set(3, 240)
+cap.set(4, 240)
 
 @app.route('/')
 def index():
@@ -43,7 +37,7 @@ def deteksi_masker():
                     (0, 255, 255), 
                     1, 
                     cv2.LINE_4)
-        cv2.imshow('img', frame0)
+        #cv2.imshow('img', frame0)
         test = cv2.imencode('.jpg', frame0)[1].tobytes()
         yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + test + b'\r\n')
         
