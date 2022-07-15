@@ -46,7 +46,6 @@ def deteksi_masker():
         db.kirim_masker(pelanggar)
         time.sleep(0.2)
 
-
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
