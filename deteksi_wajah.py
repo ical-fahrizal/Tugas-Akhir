@@ -6,7 +6,7 @@ from flask import Flask, render_template, Response
 
 app = Flask(__name__)
 
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml') #load model muka
+face_cascade = cv2.CascadeClassifier('yahya.xml') #load model muka
 
 cap = cv2.VideoCapture(0) #membuka webcam
 cap.set(3, 240)

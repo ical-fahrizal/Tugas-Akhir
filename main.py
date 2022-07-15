@@ -8,7 +8,6 @@ import socket
 host = socket.gethostname()
 ip_addr = socket.gethostbyname(host)
 suara_masker = 'suara/masker.mp3'
-suara_ruang = 'suara/ruangan.mp3'
 
 while True:
     speaker = db.speaker()
@@ -19,11 +18,6 @@ while True:
     #status pada jumlah orang 
     if jumlah_orang >= int(batas_orang):
         print('melebihi batas')
-        if speaker == "true":
-            playsound(suara_ruang)
-            time.sleep(2)
-        else:
-            pass
     else:
         print('aman')
 
@@ -38,6 +32,6 @@ while True:
             pass
     else:
         print('tidak ada pelanggar masker')
-    
+
     time.sleep(.7)
     

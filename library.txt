@@ -2,6 +2,5 @@ pip install opencv-python
 pip install requests
 pip install pyrebase4
 pip install imutils
-pip install 
-pip install csv
+pip install flask
 pip install playsound==1.2.2
