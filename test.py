@@ -10,10 +10,10 @@ from flask import Flask, render_template, Response
 
 app = Flask(__name__)
 
-cap_orang = cv2.VideoCapture(1)
+cap_orang = cv2.VideoCapture(0)
 cap_orang.set(3, 240)
 cap_orang.set(4, 240)
-cap_masker = cv2.VideoCapture(0)
+cap_masker = cv2.VideoCapture(1)
 cap_masker.set(3, 240)
 cap_masker.set(4, 240)
 
@@ -160,8 +160,8 @@ def citra():
         #cv2.imshow('join', both)
         vidio = cv2.imencode('.jpg', both)[1].tobytes()
         yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + vidio + b'\r\n')
-        db.kirim_orang(total)
-        db.kirim_masker(pelanggar)
+        #db.kirim_orang(total)
+        #db.kirim_masker(pelanggar)
         time.sleep(.2)
 
         if cv2.waitKey(30) & 0xFF == ord('q'):
